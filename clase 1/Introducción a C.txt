@@ -1,0 +1,106 @@
+Introducción a C
+
+#include <stdio.h>
+fuertemente tipado, variables y funciones
+return 0
+
+vars tienen propio formato
+int: %d, %i equivalentes
+float %f
+char '': %c 
+str "": %s
+
+las distintas comillas importan
+input: scanf(%x, &var) con x=formato 
+&var: direccion de memoria de var
+
+caso char/strings:
+input puede fallar, no se explicarlo bien. inputs anteriores dejan el enter (newline) como un char que no lee. En el siguiente llamado lee el newline que quedo en el buffer y lo guarda en el input. El espacio hace ignorar espacios previos al input
+solucion: espacio antes del %c
+scanf(" %c",&var)
+ej:
+while (signo!='+' && signo!='-' && signo!='*' && signo!='/'){
+        printf("Signo invalido, ingrese un signo\n");
+        scanf(" %c",&signo);
+}
+ingresar en el input "abc1" hace iterar 4 veces, lee inputs previos para vueltas siguientes
+
+if, else if, else tradicional
+switch(var){
+	case valor:
+		codigo
+		break;
+	...
+	default:
+		//else, si ningun case aplica corre esto
+UNICA INSTANCIA EN LA QUE SE PUEDE USAR BREAK, PARA NO RECORRER TODOS LOS CHECKS
+
+funciones:
+antes del main: trabajo por desarrollo
+despues del main: trabajo por prototipo (indicar previamente las funciones y parametros, declarar que va a estar y desarrollar al final. skippea problemas de orden de definiciones)
+prototipo funcion: tipo nombre(params);
+
+NO TE OLVIDES DE VALIDAR
+
+temp
+
+#include <stdio.h>
+
+int sumar(int a, int b){
+    int total=a+b;
+    return total;
+}
+
+int restar(int a, int b);
+
+int multiplicar(int a, int b){
+    int total=a*b;
+    return total;
+}
+
+int dividir(int a, int b){
+    int total=a/b;
+    return total;
+}
+
+int main(){
+    char signo;
+    int a,b,res;
+    printf("Ingrese el primer numero\n");
+    scanf("%d",&a);
+    printf("Ingrese el segundo numero\n");
+    scanf("%d",&b);
+    printf("Ingrese la operacion\n");
+    scanf(" %c",&signo);
+    while (signo!='+' && signo!='-' && signo!='*' && signo!='/'){
+        printf("Signo invalido, ingrese la operacion\n");
+        scanf(" %c",&signo);
+    }
+    switch (signo){
+        case '+':
+            res=sumar(a,b);
+            printf("%d+%d=%d\n",a,b,res);
+            break;
+        case '-':
+            res=restar(a,b);
+            printf("%d-%d=%d\n",a,b,res);
+            break;
+        case '*':
+            res=multiplicar(a,b);
+            printf("%d*%d=%d\n",a,b,res);
+            break;
+        default:
+            if(b!=0){
+                res=dividir(a,b);
+                printf("%d/%d=%d\n",a,b,res);
+            }
+            else{
+                printf("No se puede dividir por cero");
+            }
+    }
+}
+
+int restar(int a, int b){
+    int res=a-b;
+    return res;
+}
