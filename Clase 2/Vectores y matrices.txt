@@ -1,0 +1,85 @@
+Vectores y matrices
+
+**incorporar buenas practicas (modulariza)
+ojo tipos de datos
+operador modulo solo se puede con enteros. solución posible: pasar a enteros (trunca, no redondea)
+casting: (tipoNuevo)var
+
+arrays son de único tipo
+tipo nombre[n], con n=max ítems que puede tener (asignar la memoria en la declaración)
+usar un contador para trackear el tope, ultimo índice ocupado
+
+strings: array de chars.
+carga: scanf("%s",palabra) con palabra=char var[n]
+
+matrices:
+tipo matriz[c][f]; c=cant columnas(longitud cada item), f=cant filas(cuantos ítems)
+operaciones: matriz[x] --> fila x // matriz[x][y] --> fila y, posición x
+inversa de una matriz: columnas van de n a 0
+1 2--> 2 1 (creo, rever)
+3 4    4 3
+traspuesta matriz: swap filas, columnas
+1 | 2	  1 | 3
+----- --> -----
+3 | 4	  2 | 4
+
+
+ejs:
+int notas[10],tope;
+    tope=0;
+    for (int i=0;i<10;i++){
+        printf("Ingrese una nota: ");
+        scanf("%d",&notas[i]);
+        tope++;
+    }
+    for (int i=0;i<tope;i++){
+        printf("%d: %d\n",i,notas[i]);
+    }
+-----------------------------------------------------------------------------------------------------------
+float promediar(float suma, int cant){
+    float promedio=suma/cant;
+    return promedio;
+}
+
+int cant_impares_mayores(float nums[20], int tope, float promedio){
+    int impMay=0;
+    for (int i=0;i<tope;i++){
+        if ((int)nums[i]%2==1 && nums[i]>promedio){
+            impMay++;
+        }
+    }
+    return impMay;
+}
+
+int main(){
+    int tope,impMay;
+    float promedio,nums[20];
+    tope=0;
+    impMay=0;
+    promedio=0;
+    for (int i=0;i<20;i++){
+        printf("Ingrese un num: ");
+        scanf("%f",&nums[i]);
+        promedio=promedio+nums[i];
+        tope++;
+    }
+    promedio=promediar(promedio, tope);
+    impMay=cant_impares_mayores(nums, tope, promedio);
+    printf("La cantidad de numeros impares mayores a %f es %d",promedio,impMay);
+    return 0;
+}
+--------------------------------------------------------------------------------------------------------------
+char nombre[20];
+int tope=0;
+printf("Ingrese el nombre: ");
+scanf("%s",nombre); //guarda una serie de chars en el array de nombre, version implicita de for... nombre[i]=letra?
+printf("%s",nombre);
+return 0;
+
+
+//extra: I'm fucking goated, mas adelante se ve mejor
+tipo var=val valor
+tipo *ptr=val puntero
+&var -> dirección de variable
+*ptr -> valor de dirección
+para operar: (*ptr)operaciones (ej: *ptr=(*ptr)+2)
