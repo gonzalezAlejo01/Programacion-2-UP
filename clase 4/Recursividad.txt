@@ -1,0 +1,51 @@
+funciones que se llaman a si mismas (ej mítico: factorial de n)
+----------------------------------------------------------------------------------
+int factorial(int n){
+    if (n==0){return 1;}
+    else {return n*factorial(n-1);}
+}
+
+int main(){
+    int n=5;
+    printf("%i!=%i",n,factorial(n));
+    return 0;
+}
+----------------------------------------------------------------------------------
+por cada loop se adentra mas en el ciclo, una vez llega al punto de quiebre empieza a obtener los resultados de operación
+fact(5)=5*fact(4)=5*4*fact(3)=5*4*3*fact(2)=5*4*3*2*fact(1)=5*4*3*2*1=5*4*3*2=5*4*6=5*24=120
+
+no irse al pasto con la recursividad, cada iteración ocupa espacio en memoria hasta que se resuelve usando los resultados de ciclos siguientes
+las recursivas tienen que tener un caso base (condición de quiebre) para evitar recursividad infinita y el caso general (2 returns normalmente)
+se puede definir el 'sentido' de los resultados según si están antes o después del llamado recursivo:
+
+print(n) --> n,n-1,n-2,etc
+mostrar(n-1)
+
+mostrar(n-1)
+print(n) --> n-m,n-(m-1),n-(m-2),etc
+----------------------------------------------------------------------------------
+int binario(int n){
+    if(n<2){return n%2;}
+    else{return (binario(n/2)*10+n%2);}
+}
+
+int main(){
+    printf("%i",binario(12));
+    return 0;
+}
+----------------------------------------------------------------------------------
+int suma_digitos(int n){
+    if (n<10){return n;}
+    else{
+        int digito=n%10;
+        return digito+suma_digitos((n-digito)/10);
+    }
+}
+
+int main(){
+    int num=2467,res=suma_digitos(num);
+    printf("La suma de los digitos de %i es: %i",num,res);
+    return 0;
+}
+
+
