@@ -27,11 +27,13 @@ int eliminar_repetidos(int *ptr){
         while(*(ptr+i)<=*(ptr+i-1) && i+salto<10){
             if(*(ptr+i+salto)>*(ptr+i)){
                 *(ptr+i)=*(ptr+i+salto);
-                i+=1;
             }
             else{
                 salto+=1;
             }
+        }
+        if (i+salto<10){
+            i+=1;
         }
     }
     printf("\n%i\n",i);
