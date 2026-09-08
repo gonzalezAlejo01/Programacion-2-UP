@@ -1,0 +1,132 @@
+Tipos complejos de datos: Contienen varios valores, distintos tipos
+Definir previo a todo código para el uso libre en el desarrollo.
+
+typedef struct nombre{
+	tipo var;
+	tipo var;
+}alias;
+
+alias nombreVar;
+nombreVar.var=val; // SOLO FUNCIONA PARA ESTRUCTURAS ESTATICAS
+
+
+Listas: En lugar de índices, nodos. Las listas se definen dinámicamente (nodos son estructuras de datos), vinculados conociendo la pos en memoria del siguiente (ultimo (el pie) apunta a null). Se debe contar con el primer elemento (cabeza) para poder usar la lista (si no se donde empieza no la puedo usar). Entonces, se debe tener el puntero al primer elemento.
+
+typedef struct alumno{
+    struct alumno *siguiente;
+    char nombre[20];
+    int legajo;
+    float nota;
+}nodo;
+
+nodo *p;
+p=null;
+scanf("%s",p->nombre); //-> para memoria dinamica
+scanf("%i",&p->legajo);
+scanf("%f",&p->nota);
+
+Memoria dinámica: Reservada y liberada durante la ejecución (definiciones estáticas se reservan en compilación)
+usar librería stdlib.h
+
+reservar memoria: malloc(cant bytes necesarios) --> retorna la dir en memoria donde se reservo ese espacio
+obtener tamaño: sizeof(tipo)
+
+nodo *p;
+p=(nodo*)malloc(sizeof(nodo)); // se castea a tipo puntero nodo para que el puntero pueda trabajar con los componentes ('configurar' donde empieza cada dato)
+scanf("%s",p->nombre);
+scanf("%i",&p->legajo);
+scanf("%f",&p->nota);
+
+se opera en las listas dentro de funciones para mantener intacto el puntero original, la versión bolita es hacer una copia del puntero que se vaya modificando (por favor no lo hagas nunca o te ejecutan)
+
+--------------------------------------------------------------------------------------------
+ej:
+typedef struct alumno{
+    char nombre[20];
+    int legajo;
+    float nota;
+    struct alumno *siguiente;
+}nodo;
+
+void cargar(nodo *p){
+    for (int i=0;i<5;i++){
+        printf("Nombre, legajo, nota\n");
+        scanf("%s",p->nombre);
+        scanf("%i",&p->legajo);
+        scanf("%f",&p->nota);
+        p->siguiente=(nodo*)malloc(sizeof(nodo));
+        p=p->siguiente;
+    }
+}
+
+void mostrar(nodo *p){
+   for (int i=0;i<5;i++){
+        printf("\n%s, %i, nota: %f",p->nombre,p->legajo,p->nota);
+        p=p->siguiente;
+    }
+}
+
+int main(){
+    nodo *p;
+    p=(nodo*)malloc(sizeof(nodo));
+    cargar(p);
+    mostrar(p);
+    return 0;
+}
+------------------------------------------------------------------------------------------------
+typedef struct alumno{
+    char nombre[20];
+    int legajo;
+    float nota;
+    struct alumno *siguiente;
+}nodo;
+
+void cargar(nodo *p){
+    printf("Nombre, legajo, nota\n");
+    scanf("%s",p->nombre);
+    scanf("%i",&p->legajo);
+    scanf("%f",&p->nota);
+    if (strcmp(p->nombre,"Tomas")==0){
+        p->siguiente=NULL;
+    }
+    else{
+        p->siguiente=(nodo*)malloc(sizeof(nodo));
+        cargar(p->siguiente);
+    }
+}
+
+void mostrar(nodo *p){
+   if (p->siguiente!=NULL){
+        printf("%s (%i) - nota: %f\n",p->nombre,p->legajo,p->nota);
+        mostrar(p->siguiente);
+    }
+}
+
+void promedio(nodo *p, int *cont, float *acum){
+    if(p->siguiente==NULL){
+        if(*cont>0){
+            printf("Promedio: %f",*acum/(*cont));
+        }
+        else{
+            printf("No hay alumnos guardados, no se puede calcular el promedio");
+        }
+        return;
+    }
+    else{
+        *cont+=1;
+        *acum+=p->nota;
+        promedio(p->siguiente, cont, acum);
+    }
+}
+
+int main(){
+    nodo *p;
+    int cont=0;
+    float acum=0;
+    p=(nodo*)malloc(sizeof(nodo));
+    cargar(p);
+    mostrar(p);
+    promedio(p, &cont, &acum);
+    return 0;
+}
+----------------------------------------------------------------------------------------------
