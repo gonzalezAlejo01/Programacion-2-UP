@@ -49,4 +49,4 @@ void eliminar_primer_consecutivo(nodo *p){
     return;
 }
 -----------------------------------------------------------------------------------------
-me pego la noni, otro dia se sigue, sry yo del futuro, anotate lo que vean en la clase de repaso
+ojo en casos de insercion y eliminacion donde queda parado el puntero actual, tiene saltos que rompen la iteracion comun
