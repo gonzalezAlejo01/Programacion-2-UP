@@ -50,3 +50,5 @@ void eliminar_primer_consecutivo(nodo *p){
 }
 -----------------------------------------------------------------------------------------
 ojo en casos de insercion y eliminacion donde queda parado el puntero actual, tiene saltos que rompen la iteracion comun
+
+creo que esta todo como el orto, revisalo con el ejercicio de parcial resuelto (temas: crear ultimo nodo con basura que apunta a null, eliminar cabeza y cualquier otro lado vs todo en uno, promedio usar punteros de variables en main, no pasar como parametro, fijarse si se puede alterar orden ejercicios (eliminar dividia lista en 2, y eso rompia mas o menos todo lo siguiente)
