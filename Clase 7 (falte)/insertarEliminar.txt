@@ -5,6 +5,9 @@ Para eliminar, como es simplemente enlazada, se usa el nodo y su siguiente. Ento
 
 ojo en la creacion, el malloc y la asignacion del siguiente que sea si no se cumple la condicion, si no que sea null el siguiente
 y ojo al mostrar, pensar en los extremos (cabeza, cola)
+
+cuando se hace la carga, la ultima vuelta contiene dato basura que apunta a null (ultimo nodo no forma parte de los datos ingresados). 
+Revisa el codigo, se aloja la memoria para el nodo siguiente, pero en la siguiente vuelta si no cumple SU siguiente es NULL, para que no funcione tendra que pacer p=NULL
 --------------------------------------------------------------------------------------
 ej:
 mostrar(p){
