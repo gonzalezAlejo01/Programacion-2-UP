@@ -1,0 +1,49 @@
+el nodo que se pasa como parametro para las funciones de eliminar es local, por lo que hacer p=nodo no hace absolutamente nada. 
+Si se quiere modificar p, se debe tratar sus valores individuales. Al ser un puntero, cambiar su valor solo es local
+Pero cambiar los datos particulares implica sobreescribir a mano cada direccion de memoria. 
+Para eliminar, como es simplemente enlazada, se usa el nodo y su siguiente. Entonces, la condicion necesaria es que p->sig y p->sig->sig!=NULL
+
+ojo en la creacion, el malloc y la asignacion del siguiente que sea si no se cumple la condicion, si no que sea null el siguiente
+y ojo al mostrar, pensar en los extremos (cabeza, cola)
+--------------------------------------------------------------------------------------
+ej:
+mostrar(p){
+  if p->sig!=NULL{
+    print(p->data)
+    mostrar(p->sig)
+  }
+}
+no muestra el ultimo, pero
+
+mostrar(p){
+  print(p->data)
+  if p->sig!=NULL{
+    mostrar(p->sig)
+  }
+}
+
+si lo hace
+-----------------------------------------------------------------------------------------
+
+una buena: para que los delete incluya la cola, poner un caso donde se este mirando el anteultimo nodo:
+void eliminar_primer_consecutivo(nodo *p){
+    if(p!=NULL && p->sig!=NULL){
+        if(p->num==(p->sig)->num-1){
+            if(p->sig->sig!=NULL){
+                p->num=p->sig->num;
+                nodo *aux=p->sig->sig;
+                free(p->sig);
+                p->sig=aux;
+            }
+            else{
+                p->num=p->sig->num;
+                free(p->sig);
+                p->sig=NULL;
+            }
+        }
+        eliminar_primer_consecutivo(p->sig);
+    }
+    return;
+}
+-----------------------------------------------------------------------------------------
+me pego la noni, otro dia se sigue, sry yo del futuro, anotate lo que vean en la clase de repaso
