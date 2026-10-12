@@ -1,0 +1,56 @@
+multilista: una 'matriz'. Conjunto de nodos enlazados que a su vez son el principio de su propia lista
+a->b->c
+a->1->2->3
+b->x->y->z
+c->5->6->7
+
+pasos:
+-definir las estructuras necesarias (structs)
+-reservar en memoria el primero de la principal
+-ingresar nodos en la lista principal (cuando se ingresa uno, ingresar sus nodos asociados (2ptrs, 1 para lista principal, 1 para nodo de la lista del nodo actual)
+
+2 structs: 
+lista principal: datos, puntero a siguiente, puntero al primero de su lista
+lista secundaria: datos, puntero al siguiente de su lista
+
+archivos: implementar persistencia de datos (por fuera del entorno de ejecución)
+usamos solo txt
+
+tipo: FILE *cfptr
+puntero a ubicación del archivo
+
+abrir: cfptr=fopen(ruta al archivo (absoluta) como string, modo apertura(string))
+modos apertura: 
+r leer, si no existe error 
+w escribir, si existe se elimina, si no crea
+a append, si existe escribe al final, si no crea vacio
+w+ leer y escribir, si existe se elimina
+r+ leer y escribir, si no existe crea vacio
+a+ leer y escribir (al final), si no existe crea vacio
+SI FALLA, PTR=NULL, VALIDAR QUE NO LO SEA
+SOLO SI r FALLA TIRA ERROR (PREGUNTA TEORICA)
+
+escribir en archivo:
+fprintf(punteroArchivo, "lo que quiera escribir, incluyendo %cariables",'c');
+
+a medida que se recorre un archivo, se tiene un cursor implicito con una posición que perdura hasta el cierre del mismo (fprintf escribe donde toca, cursor queda posición siguiente x ej)
+
+fclose(ptr) para cerrarlo
+necesario cerrar a mano para garantizar guardado correcto
+
+feof(ptr) --> booleano, retorna si el cursor esta o no en el final de archivo
+
+fscanf(puntero, "datos a leer", &variables,&donde,&guardarlo)
+ej: fscanf(cfptr,"%d %s %f",&legajo,nombre,&sueldo)
+
+para leer variables, si hay flavour en el archivo se debe incluir en el scanf:
+ej:
+escritura en archivo:
+fprintf(arch, "Alumno: %s\nNota 1: %f, Nota 2: %f (promedio: %f)\n",nombre,n1,n2,prom);
+
+lectura posterior:
+fscanf(arch, "%s %f %f %f",nombre,&n1,&n2,&prom); --> se rompe, lee cualquier dato del archivo
+
+en cambio:
+fscanf(arch, "Alumno: %s\nNota 1: %f, Nota 2: %f (promedio: %f)\n",nombre,&n1,&n2,&prom);
+lee el string después de "Alumno: ", los float después de "NOTA 1: " y "NOTA 2: ", y el float después de "(promedio: ", leyendo hasta el salto de linea (ahí se para el cursor)

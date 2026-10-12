@@ -1,0 +1,4 @@
+Alumno: tomtom
+Nota 1: 5.000000, Nota 2: 8.000000 (promedio: 6.500000)
+Alumno: sixseven
+Nota 1: 6.000000, Nota 2: 7.000000 (promedio: 6.500000)
