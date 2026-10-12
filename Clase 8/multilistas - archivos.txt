@@ -31,7 +31,7 @@ SI FALLA, PTR=NULL, VALIDAR QUE NO LO SEA
 SOLO SI r FALLA TIRA ERROR (PREGUNTA TEORICA)
 
 escribir en archivo:
-fprintf(punteroArchivo, "lo que quiera escribir, incluyendo %cariables",'c');
+fprintf(punteroArchivo, "lo que quiera escribir, incluyendo %cariables",'v');
 
 a medida que se recorre un archivo, se tiene un cursor implicito con una posición que perdura hasta el cierre del mismo (fprintf escribe donde toca, cursor queda posición siguiente x ej)
 
