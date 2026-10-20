@@ -1,0 +1,54 @@
+pilas y colas, tipos de listas simplemente enlazadas. no se pueden recorrer, en el sentido de que tienen lógica distinta de manipulación (nada impide hacer un puntero y recorrerla, pero ta mal). Evaluar contenidos implica sacarlos de la estructura
+
+pila: LIFO
+cola: FIFO
+struct de dato y siguiente, como lista simplemente enlazada
+
+PARA PODER USARLOS (CUENTAS, PRINTS, ETC ETC) SE QUITAN DE SU RESPECTIVA ESTRUCTURA, una vez eliminado operar sobre el mismo (ej: mostrar(desapilar(&p))
+
+Pilas: lista enlazada, pero al reves. el fondo de la pila es el ultimo nodo, cada nodo ingresado se vuelve nueva cabeza. 
+ej(apilar(p1)-apilar(p2)-apilar(p3) ==> p1->sig=null, p2->sig=p1, p3->sig=p2)
+
+nodo* crear(){}
+
+apilar(nodo* &p, nodo* nodoASumar) recibe la dirección del puntero y el nodo a apilar. P apunta a la cabeza de la pila, al apilar otro nodo se vuelve la nueva cabeza, por lo que P se cambia en la función, y apunta al viejo P el nodo agregado. (nuevo nodo apunta a null aca, y se pasa la dir de donde se haya guardado)
+
+void apilar(nodo** p, nodo* nodoAApilar){ (p doble puntero, originalmente es puntero a cabeza, necesitamos su dirección para modificarla, es puntero de puntero, y el nodo contiene el dato y apunta a null)
+	nodoAApilar->sig=*p (el nodo a apilar es la nueva cabeza, apunta a la vieja cabeza
+	*p=u
+}
+
+nodo desapilar(&p){ (se le pasa la dir de la cabeza, para poder sacar el elemento. retorna el nodo para poder usarlo, no su puntero. al sacar de pila se borra)
+	nodo* aux; (puntero auxiliar para poder liberar memoria alojada después de cambiar la cabeza)
+	nodo datos; (nodo a retornar, con la info de la cabeza a quitar)
+	datos=**p; (**p=nodo cabeza, *p dir nodo cabeza)
+	aux=*p; (se iguala a la dir a liberar)
+	*p=(*p)->sig; (se actualiza la cabeza, pasando a ser el siguiente de la pila)
+	free(aux);
+	return datos;
+}
+
+
+Colas: (crear es lo mismo, pues solo trata el dato guardado)
+void acolar(nodo** p, nodo** u, nodo* s){ (necesito saber la cabeza (p) y la tail (u), *p y *u empiezan en NULL, y s es el nodo creado)
+	if(*p=NULL){*p=*u=q} (cabeza y tail apuntan al primer y unico nodo existente)
+	else{
+		(*u)->sig=q; (aca *u es la tail vieja, se vincula el nuevo nodo a la cola)
+		(*u)=q; (una vez agregado, se actualiza la tail (u) para que apunte al ultimo nodo ingresado)
+	}
+}
+
+nodo desacolar(nodo** inicio){ (funciona igual que desapilar, inicio es p)
+	nodo* aux
+	nodo datos;
+	datos==**inicio
+	aux=*inicio
+	*inicio=(*inicio)->sig
+	free(aux)
+	return datos;	
+}
+
+
+tanto para pilas y colas, los calculos se hacen en desapilar/desacolar, y en mostrar se muestra (a menos que sea mostrar por vuelta)
+
+si se tienen que registrar datos de primero/ultimo que son normalmente inaccesibles hasta ultima vuelta, registrar durante la insercion (lo mismo para cantidades totales, etc). Trata de no hacer un primer quite por fuera de los while
