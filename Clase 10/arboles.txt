@@ -1,0 +1,72 @@
+typedef struct arbol{
+	int dato;
+	struct árbol *izq;
+	struc árbol *der;
+}nodo;
+
+void crear (nodo **hoja){
+    int num;
+    printf("Ingrese num: ");
+    scanf("%i",&num);
+    while(numero!=-1){
+        insertar(&(*hoja),num);
+        printf("Ingrese otro: ");
+        scanf("%i",&num);
+    }
+}
+
+//los llamados a insertar parten de la raíz
+//doble puntero, necesito conocer la dirección de memoria del puntero a hoja. Si no existe, se crea y debe guardar su nueva dir.
+//con esta lógica, los iguales van a la izq, pero no pueden haber iguales en arboles
+void insertar (nodo **hoja, int elem){ 
+    if(elem==-1){
+        return;
+    }
+    if (*hoja==NULL){
+        (*hoja)=(nodo*)malloc(sizeof(nodo));
+        (*hoja)->dato=elem;
+        (*hoja)->der=NULL;
+        (*hoja)->izq=NULL;
+    }
+    else{
+        if(numero>(*hoja)->dato){
+            insertar(&(*hoja)->der,elem)
+        }
+        else{
+            insertar(&(*hoja)->izq,elem);
+        }
+    }
+    return;
+}
+
+//ej mostrar en orden (otros ordenes cambiar orden de prints):
+void mostrar(nodo *hoja){
+	if (hoja!=NULL){
+		mostrar(hoja->izq);
+		printf("%i\n",hoja->dato);
+		mostrar(hoja->der);
+	}
+
+Arboles binarios: Estructura no lineal, representa un árbol con ramificaciones binarias compuestas de nodos. Un árbol esta balanceado cuando del lado izquierdo y del lado derecho tiene la misma cantidad de nodos (la ubicación no importa?). Compuesto por:
+-raíz: nodo principal, nodo base
+-subárbol izquierdo: compuesto por nodos menores a la raíz
+-subárbol derecho: compuesto por nodos mayores a la raíz
+
+nodos padres: todo nodo que tiene al menos un hijo
+nodos hijos: nodos con un padre
+nodos hoja: nodos que no tienen hijos
+
+grado de un nodo: la cantidad de hijos que tiene
+nivel: la 'fila' en la que se encuentra el nodo, la distancia entre el nodo y la raíz (raíz es nivel 1, hijos directos nivel 2, etc)
+
+cada nodo tiene dos punteros, izquierdo y derecho a otros nodos (elementos son estáticos)
+
+varios tipos de arboles binarios, solo se van a ver los binarios de búsqueda
+
+problema: ingresar elemento ya existente en el arbol
+
+
+formas de recorrer:
+-En orden: del mas chico al mas grande
+-En preorden: se lee raíz, se recorre el árbol izquierdo, se recorre el subárbol derecho
+-En postorden: se recorre el subárbol izquierdo, el subárbol derecho, se lee raiz
