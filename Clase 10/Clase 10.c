@@ -115,35 +115,38 @@ nPila* crearNodo(int num){
     return aux;
 }
 
-void apilar(nPila **pila, nPila *aux){
+void apilar(nPila **pila, nPila *aux, int *cont, int *segElem){
     aux->sig=*pila;
     *pila=aux;
+    *cont+=1;
+    if(*cont==2){
+        *segElem=aux->num;
+    }
 }
 
-void crearPila(nPila **pila){
+void crearPila(nPila **pila, int *cont, int *segElem){
     int num;
     printf("Ingrese un numero (999 para salir): ");
     scanf("%i",&num);
     while(num!=999){
-        apilar(pila, crearNodo(num));
+        apilar(pila, crearNodo(num), cont, segElem);
         printf("Ingrese otro: ");
         scanf("%i",&num);
     }
 }
 
-nPila desapilar(nPila **pila, int *primElem, int *segElem, int *actual, int *cantMayoresSeg, int *ingreso, int *cont){
+nPila desapilar(nPila **pila, int *segElem, int *cantMayoresSeg, int *ingreso, int *cont){
     nPila *aux=*pila;
     nPila item=**pila;
     (*pila)=(*pila)->sig;
     free(aux);
 
-    if(*actual==0){
-        *primElem=item.num;
+    if(item.num==*segElem){
+        *cantMayoresSeg+=1;
     }
-    else if(*actual==1){
-        *segElem=item.num;
+    if(item.num==*ingreso){
+        *cont+=1;
     }
-    else if()
 
     return item;
 }
@@ -179,13 +182,27 @@ int main(){
     */
 
     nPila* pila=NULL;
-    crearPila(&pila);
-    int primElem, segElem, actual=0, cantMayoresSeg=0, ingreso, cont=0;
+    int segElem, cantMayoresSeg=0, ingreso, cont=0;
+    crearPila(&pila, &segElem, &cont);
+    cont=0;
     printf("Ingrese un numero, y se buscaran todas sus apariciones: ");
     scanf("%i",&ingreso);
     while(pila!=NULL){
-        mostrarPila(desapilar(pila, &primElem, &segElem, &actual, &cantMayoresSeg, &ingreso, &cont));
+        mostrarPila(desapilar(pila, &segElem, &cantMayoresSeg, &ingreso, &cont));
     }
+
+    printf("En la pila hay %i elementos mayores al segundo (%i)\n", cantMayoresSeg, segElem);
+    printf("El numero ingresado aparece %i veces en la pila",cont);
+
+    /*
+    |     |      /\      /-----  |------  |-----\
+    |     |     /  \     |       |        |      |
+    |-----|    /----\    |       |---     |_____/
+    |     |   /      \   |       |        |   \  
+    |     |  /        \  \_____  |______  |    \    
+
+    (el de colas, me da paja terminarlo)
+    */
 
     return 0;
 }
